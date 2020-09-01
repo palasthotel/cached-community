@@ -3,25 +3,23 @@
 namespace CachedCommunity;
 
 
-class ActivityComments {
-	
+class ActivityComments extends _Component {
+
 	/**
 	 * types of notification element
 	 */
 	const NUMBER_OF_ELEMENTS = 10;
-	
+
 	/**
-	 * Activity constructor.
-	 *
-	 * @param Plugin $plugin
+	 * init
 	 */
-	function __construct( $plugin ) {
+	function onCreate() {
 		add_action( 'set_current_user', array( $this, 'set_current_user' ) );
-		
+
 		add_action( 'comment_post', array( $this, 'comment_post' ), 10, 2 );
 		add_action( 'transition_comment_status', array( $this, 'transition_comment_post' ), 10, 3 );
 	}
-	
+
 	/**
 	 * add activity object to user for later use in activity query
 	 */
@@ -32,7 +30,7 @@ class ActivityComments {
 		}
 		$user->activity_comments = $this;
 	}
-	
+
 	/**
 	 * @param int $comment_id
 	 * @param boolean $comment_approved
@@ -43,7 +41,7 @@ class ActivityComments {
 		}
 		$this->add_comment_to_activity( get_comment( $comment_id ) );
 	}
-	
+
 	/**
 	 * @param $new_status
 	 * @param $old_status
@@ -55,7 +53,7 @@ class ActivityComments {
 		}
 		$this->add_comment_to_activity( $comment );
 	}
-	
+
 	/**
 	 * adds new comment to user activities
 	 *
@@ -65,16 +63,16 @@ class ActivityComments {
 		if ( ! $comment instanceof \WP_Comment ) {
 			$comment = get_comment( $comment );
 		}
-		
+
 		$user_ids = $this->get_all_post_commenting_users( $comment->comment_post_ID );
-		
+
 		foreach ( $user_ids as $user_id ) {
 
 			// skip self
 			if($comment->user_id == $user_id) continue;
-			
+
 			$activity = $this->get_user_activity( $user_id );
-			
+
 			/**
 			 * remove old notification if newer is here
 			 */
@@ -84,7 +82,7 @@ class ActivityComments {
 					break;
 				}
 			}
-			
+
 			/**
 			 * add comment notification to top of list
 			 */
@@ -93,11 +91,11 @@ class ActivityComments {
 				"post_id"    => $comment->comment_post_ID,
 				"comment_id" => $comment->comment_ID,
 			) );
-			
+
 			$this->set_user_activity( $user_id, $activity );
 		}
 	}
-	
+
 	/**
 	 * all user ids that commented the post
 	 *
@@ -119,10 +117,10 @@ class ActivityComments {
 				$user_ids[] = $comment->user_id;
 			}
 		}
-		
+
 		return array_unique( $user_ids );
 	}
-	
+
 	/**
 	 * @param int $user_id
 	 * @param array $activity
@@ -132,7 +130,7 @@ class ActivityComments {
 	function set_user_activity( $user_id, $activity ) {
 		return update_user_meta( $user_id, Plugin::USER_META_ACTIVITY_COMMENTS, array_slice( $activity, 0, self::NUMBER_OF_ELEMENTS ) );
 	}
-	
+
 	/**
 	 * @param int $user_id
 	 *
@@ -145,6 +143,6 @@ class ActivityComments {
 		}
 		return $activity;
 	}
-	
-	
+
+
 }

@@ -20,31 +20,32 @@ namespace CachedCommunity;
  * @see http://coderrr.com/create-an-api-endpoint-in-wordpress/
  * @author Kim-Christian Meyer <kim.meyer@palasthotel.de>
  */
-class Ajax_Endpoint {
-	
+class AjaxEndpoint {
+	// refactor to REST Api endpoint
+
 	const AJAX_PREFIX = "wp-login__ajax";
 	const AJAX_VALUE = "1";
 	const VAR_DOMAIN = "ajax-domain";
 	const VAR_ACTION_PREFIX = "ajax-action-";
 	const VAR_PARAM_PREFIX = "ajax-param-";
-	
+
 	/**
 	 * GET keys action & param for request
 	 */
 	public static function PARAM() {
 		return self::VAR_PARAM_PREFIX . Plugin::DOMAIN;
 	}
-	
+
 	public static function ACTION() {
 		return self::VAR_ACTION_PREFIX . Plugin::DOMAIN;
 	}
-	
+
 	// AJAX request key
 	private $request_key;
-	
+
 	// This callback function is called, when AJAX request ist submitted.
 	private $callback_function;
-	
+
 	/**
 	 * Hook WordPress
 	 *
@@ -55,14 +56,14 @@ class Ajax_Endpoint {
 		$this->request_key       = $request_key;
 		$this->callback_function = $callback_function;
 		$this->is_404 = false;
-		
+
 		add_filter( 'query_vars', array( $this, 'add_query_vars' ), 0 );
 		add_action( 'parse_request', array( $this, 'sniff_requests' ), 0 );
 		add_action( 'init', array( $this, 'add_endpoint' ), 0 );
-		
+
 		add_action( 'pre_get_posts', array( $this, 'maybe_404' ) );
 	}
-	
+
 	/**
 	 * Add public query vars
 	 *
@@ -75,10 +76,10 @@ class Ajax_Endpoint {
 		$vars[] = self::PARAM();
 		$vars[] = self::AJAX_PREFIX;
 		$vars[] = self::VAR_DOMAIN;
-		
+
 		return $vars;
 	}
-	
+
 	/**
 	 * Add API Endpoint
 	 * This is where the magic happens - brush up on your regex skillz
@@ -90,7 +91,7 @@ class Ajax_Endpoint {
 			'index.php?' . self::AJAX_PREFIX . '=' . self::AJAX_VALUE . '&' . self::VAR_DOMAIN . '=' . Plugin::DOMAIN . '&' . self::ACTION() . '=$matches[1]&' . self::PARAM() . '=$matches[2]', 'top'
 		);
 	}
-	
+
 	/**
 	 * Sniff Requests
 	 * This is where we hijack all API requests
@@ -104,7 +105,7 @@ class Ajax_Endpoint {
 			$this->handle_request();
 		}
 	}
-	
+
 	/**
 	 * Handle Requests
 	 * Decide what to do.
@@ -112,11 +113,11 @@ class Ajax_Endpoint {
 	 */
 	protected function handle_request() {
 		global $wp;
-		
+
 		// $param Equals empty string if not set.
 		$action = ( empty( $wp->query_vars[ self::ACTION() ] ) ) ? "" : $wp->query_vars[ self::ACTION() ];
 		$param  = ( empty( $wp->query_vars[ self::PARAM() ] ) ) ? "" : $wp->query_vars[ self::PARAM() ];
-		
+
 		if ( ! empty( $action ) && $action === $this->request_key && is_callable( $this->callback_function ) ) {
 			if(call_user_func( $this->callback_function, $param ) === false){
 				wp_send_json(array("info" =>  "Sorry, you are wrong here!"),200);
@@ -126,7 +127,7 @@ class Ajax_Endpoint {
 			}
 		}
 	}
-	
+
 	/**
 	 * get url for ajax request
 	 *
@@ -137,7 +138,7 @@ class Ajax_Endpoint {
 	public function getURL( $param = "" ) {
 		return '/' . self::AJAX_PREFIX . '/' . Plugin::DOMAIN . '/' . $this->request_key . '/' . $param;
 	}
-	
+
 	/**
 	 * @param \WP_Query $query
 	 */
@@ -146,5 +147,5 @@ class Ajax_Endpoint {
 			$query->set_404();
 		}
 	}
-	
+
 }

@@ -24,50 +24,18 @@ class API {
 	 */
 	function __construct( $plugin ) {
 		$this->plugin = $plugin;
-		$this->ajax   = new Ajax_Endpoint( "api", array( $this, "request" ) );
+		$this->ajax   = new AjaxEndpoint( "api", array( $this, "request" ) );
 
 		add_action( "wp_enqueue_scripts", array( $this, "enqueue_scripts" ) );
-		add_filter( Plugin::FILTER_COMMUNITY_URLS, array( $this, 'endpoint_community_domain' ) );
-	}
-
-	/**
-	 * white list api url to community domain
-	 *
-	 * @param $urls
-	 *
-	 * @return array
-	 */
-	function endpoint_community_domain( $urls ) {
-		$urls[] = $this->ajax->getURL();
-
-		return $urls;
 	}
 
 	/**
 	 * register js api scripts
 	 */
 	function enqueue_scripts() {
-		wp_enqueue_script(
-			"jquery-xdr",
-			$this->plugin->url . "js/xdr.min.js",
-			array( "jquery", ),
-			filemtime( $this->plugin->dir . "js/min/xdr.min.js" ),
-			true
-		);
-		wp_enqueue_script(
-			Plugin::HANDLE_JS_API,
-			$this->plugin->url . "js/api.min.js",
-			array( "jquery", 'jquery-xdr', 'underscore' ),
-			filemtime( $this->plugin->dir . "js/api.js" ),
-			true
-		);
-		wp_localize_script( Plugin::HANDLE_JS_API, "CachedCommunity", array(
-			"domains"    => array(
-				"default" => $this->plugin->request->get_domain(),
-
-			),
-			"ajaxdomain" => $this->plugin->request->get_community_domain(),
-			"ajaxurl"    => "//" . $this->plugin->request->get_community_domain() . $this->ajax->getURL(),
+		$this->plugin->assets->enqueueClientAPIScripts( array(
+			"restUrl" => esc_url_raw(rest_url()),
+			"ajaxurl"    => "//" . admin_url('/admin-ajax.php'),
 			"commands"   => array(
 				"login"    => self::CMD_LOGIN,
 				"logout"   => self::CMD_LOGOUT,
@@ -76,7 +44,7 @@ class API {
 				"activity" => self::CMD_ACTIVITY,
 				"nonce"    => self::CMD_NONCE,
 			),
-		) );
+		));
 	}
 
 	/**

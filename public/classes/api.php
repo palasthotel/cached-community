@@ -24,7 +24,6 @@ class API {
 	 */
 	function __construct( $plugin ) {
 		$this->plugin = $plugin;
-		$this->ajax   = new AjaxEndpoint( "api", array( $this, "request" ) );
 
 		add_action( "wp_enqueue_scripts", array( $this, "enqueue_scripts" ) );
 	}
@@ -34,16 +33,11 @@ class API {
 	 */
 	function enqueue_scripts() {
 		$this->plugin->assets->enqueueClientAPIScripts( array(
-			"restUrl" => esc_url_raw(rest_url()),
-			"ajaxurl"    => "//" . admin_url('/admin-ajax.php'),
-			"commands"   => array(
-				"login"    => self::CMD_LOGIN,
-				"logout"   => self::CMD_LOGOUT,
-				"state"    => self::CMD_STATE,
-				"data"     => self::CMD_DATA,
-				"activity" => self::CMD_ACTIVITY,
-				"nonce"    => self::CMD_NONCE,
-			),
+			"ajax" => [
+				"login" => $this->plugin->ajax->getLoginUrl(),
+				"logout" => $this->plugin->ajax->getLogoutUrl(),
+				"activity" => "TODO:activity url"
+			],
 		));
 	}
 

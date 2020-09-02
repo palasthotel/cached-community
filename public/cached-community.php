@@ -22,6 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @property SpecialCookie specialCookie
  * @property Cache cache
  * @property AdminBar adminBar
+ * @property Ajax ajax
  */
 class Plugin {
 
@@ -65,9 +66,10 @@ class Plugin {
 		require_once dirname(__FILE__)."/vendor/autoload.php";
 
 		$this->specialCookie = new SpecialCookie($this);
-		$this->assets = new Assets($this);
-		$this->cache = new Cache($this);
-		$this->adminBar = new AdminBar($this);
+		$this->assets        = new Assets($this);
+		$this->cache         = new Cache($this);
+		$this->adminBar      = new AdminBar($this);
+		$this->ajax          = new Ajax($this);
 
 		$this->activityComments = new ActivityComments($this);
 		$this->api = new API($this);

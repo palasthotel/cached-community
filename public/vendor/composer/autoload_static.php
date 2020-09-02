@@ -28,6 +28,7 @@ class ComposerStaticInit7393cf504a41d6785c3ed3c2fd979839
         'CachedCommunity\\AjaxEndpoint' => __DIR__ . '/../..' . '/classes/AjaxEndpoint.php',
         'CachedCommunity\\Assets' => __DIR__ . '/../..' . '/classes/Assets.php',
         'CachedCommunity\\Cache' => __DIR__ . '/../..' . '/classes/Cache.php',
+        'CachedCommunity\\REST' => __DIR__ . '/../..' . '/classes/REST.php',
         'CachedCommunity\\SpecialCookie' => __DIR__ . '/../..' . '/classes/SpecialCookie.php',
         'CachedCommunity\\_Component' => __DIR__ . '/../..' . '/classes/_Component.php',
     );

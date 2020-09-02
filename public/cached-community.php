@@ -20,13 +20,16 @@ if ( ! defined( 'WPINC' ) ) {
  * @property string url
  * @property Assets assets
  * @property SpecialCookie specialCookie
+ * @property Cache cache
+ * @property AdminBar adminBar
  */
 class Plugin {
 
 	const DOMAIN = "cached-community";
 
 	const FILTER_MIN_CAP = "cached_community_special_cookie_min_cap";
-
+	const FILTER_COOKIE_NAME = "cached_community_special_cookie_name";
+	const FILTER_COOKIE_VALUE = "cached_community_special_cookie_value";
 	const FILTER_NO_CACHE = "cached_community_no_cache";
 
 	const FILTER_ACTIVITY_STREAM = "cached_community_activity_stream";
@@ -63,17 +66,10 @@ class Plugin {
 
 		$this->specialCookie = new SpecialCookie($this);
 		$this->assets = new Assets($this);
-
-		$this->activity_comments = new ActivityComments($this);
-
-		require_once dirname( __FILE__ ) . "/inc/admin-bar.php";
-		$this->admin_bar = new AdminBar($this);
-
-		require_once dirname( __FILE__ ) . "/inc/cache.php";
 		$this->cache = new Cache($this);
+		$this->adminBar = new AdminBar($this);
 
-		require_once dirname( __FILE__ ) . "/inc/ajax-endpoint.php";
-		require_once dirname( __FILE__ ) . "/inc/api.php";
+		$this->activityComments = new ActivityComments($this);
 		$this->api = new API($this);
 
 		/**

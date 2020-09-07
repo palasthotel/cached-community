@@ -86,15 +86,12 @@ class Plugin {
 	 * on plugin activation
 	 */
 	function activation(){
-		$this->api->ajax->add_endpoint();
-		flush_rewrite_rules();
 	}
 
 	/**
 	 * on plugin deactivation
 	 */
 	function deactivation(){
-		flush_rewrite_rules();
 	}
 
 }

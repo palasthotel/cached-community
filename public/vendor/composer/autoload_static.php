@@ -7,30 +7,29 @@ namespace Composer\Autoload;
 class ComposerStaticInit7393cf504a41d6785c3ed3c2fd979839
 {
     public static $prefixLengthsPsr4 = array (
-        'C' =>
+        'C' => 
         array (
             'CachedCommunity\\' => 16,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'CachedCommunity\\' =>
+        'CachedCommunity\\' => 
         array (
             0 => __DIR__ . '/../..' . '/classes',
         ),
     );
 
     public static $classMap = array (
-	    'CachedCommunity\\API'              => __DIR__ . '/../..' . '/classes/api.php',
-	    'CachedCommunity\\ActivityComments' => __DIR__ . '/../..' . '/classes/ActivityComments.php',
-	    'CachedCommunity\\ActivityQuery'    => __DIR__ . '/../..' . '/classes/ActivityQuery.php',
-	    'CachedCommunity\\AdminBar'         => __DIR__ . '/../..' . '/classes/AdminBar.php',
-	    'CachedCommunity\\AjaxEndpoint'     => __DIR__ . '/../..' . '/classes/AjaxEndpoint.php',
-	    'CachedCommunity\\Assets'           => __DIR__ . '/../..' . '/classes/Assets.php',
-	    'CachedCommunity\\Cache'            => __DIR__ . '/../..' . '/classes/Cache.php',
-	    'CachedCommunity\\Ajax'             => __DIR__ . '/../..' . '/classes/REST.php',
-	    'CachedCommunity\\SpecialCookie'    => __DIR__ . '/../..' . '/classes/SpecialCookie.php',
-	    'CachedCommunity\\_Component'       => __DIR__ . '/../..' . '/classes/_Component.php',
+        'CachedCommunity\\API' => __DIR__ . '/../..' . '/classes/api.php',
+        'CachedCommunity\\ActivityComments' => __DIR__ . '/../..' . '/classes/ActivityComments.php',
+        'CachedCommunity\\ActivityQuery' => __DIR__ . '/../..' . '/classes/ActivityQuery.php',
+        'CachedCommunity\\AdminBar' => __DIR__ . '/../..' . '/classes/AdminBar.php',
+        'CachedCommunity\\Ajax' => __DIR__ . '/../..' . '/classes/Ajax.php',
+        'CachedCommunity\\Assets' => __DIR__ . '/../..' . '/classes/Assets.php',
+        'CachedCommunity\\Cache' => __DIR__ . '/../..' . '/classes/Cache.php',
+        'CachedCommunity\\SpecialCookie' => __DIR__ . '/../..' . '/classes/SpecialCookie.php',
+        'CachedCommunity\\_Component' => __DIR__ . '/../..' . '/classes/_Component.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

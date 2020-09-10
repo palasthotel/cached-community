@@ -12,7 +12,7 @@ class _Component {
 	 *
 	 * @param Plugin $plugin
 	 */
-	public function __construct($plugin) {
+	public function __construct(Plugin $plugin) {
 		$this->plugin = $plugin;
 		$this->onCreate();
 	}

@@ -15,7 +15,6 @@
 	 * get login state
 	 */
 	const fetchUserState = ()=> _getRequest(ajax.login).then(data => {
-		console.debug("fetchUserState", data);
 		_save_user_state(data);
 		return data;
 	});
@@ -113,7 +112,6 @@
 	 * @return jqXHR
 	 */
 	const _request = (url, method , params= {}) => new Promise((resolve, reject)=>{
-		console.log("_request")
 		$.ajax({
 			method,
 			url,
@@ -125,7 +123,6 @@
 			},
 		})
 			.then(data=>{
-				console.log("response ", data)
 				resolve(data);
 			})
 			.fail((data, status, error) => {
@@ -137,7 +134,7 @@
 	// ---------------------------
 	// init object
 	// ---------------------------
-	CachedCommunity = {
+	window.CachedCommunity = {
 		...CC,
 		user: _restore_user_state(),
 		login,

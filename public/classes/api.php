@@ -6,7 +6,7 @@ namespace CachedCommunity;
 class API {
 
 	const ACTION = "cached_community";
-	
+
 	const CMD = "cmd";
 	const CMD_LOGIN = "login";
 	const CMD_LOGOUT = "logout";

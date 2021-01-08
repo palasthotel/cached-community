@@ -2,11 +2,11 @@
 
 (function ($) {
 
-	var storage = localStorage;
-	var CC = CachedCommunity;
-	const ajax = CC.ajax;
+	const storage = localStorage;
+	const ajax = CachedCommunity.ajax;
+	const user = _restore_user_state();
 
-	CC.EVENT = {
+	CachedCommunity.EVENT = {
 		user_update: "cached_community_user_update",
 		user_data_update: "cached_community_user_data_update",
 	};
@@ -30,7 +30,6 @@
 		ajax.login,
 		{user, password, remember}
 	).then(data => {
-		console.debug("login", data);
 		_save_user_state(data.user);
 		return data;
 	})
@@ -39,7 +38,9 @@
 	 * get logged in state
 	 * @private
 	 */
-	const isLoggedIn = () => typeof CC.user === typeof {} && CC.user.logged_in;
+	const isLoggedIn = () => {
+		return typeof CachedCommunity.user !== typeof undefined && CachedCommunity.user !== null && CachedCommunity.user.logged_in;
+	}
 
 	/**
 	 * check activity stream
@@ -68,17 +69,17 @@
 		/*
 		 * do not overwrite values but those from server
 		 */
-		CC.user = {
-			...(CC.user || {}),
+		CachedCommunity.user = {
+			...(CachedCommunity.user || {}),
 			...user,
 		};
-		storage.setItem('cached_community_user', JSON.stringify(CC.user));
-		document.body.dispatchEvent(_get_event(CC.EVENT.user_update));
+		storage.setItem('cached_community_user', JSON.stringify(CachedCommunity.user));
+		document.body.dispatchEvent(_get_event(CachedCommunity.EVENT.user_update));
 	}
 
 	function _delete_user_state() {
 		storage.removeItem('cached_community_user');
-		document.body.dispatchEvent(_get_event(CC.EVENT.user_update));
+		document.body.dispatchEvent(_get_event(CachedCommunity.EVENT.user_update));
 	}
 
 	function _restore_user_state(){
@@ -135,7 +136,7 @@
 	// init object
 	// ---------------------------
 	window.CachedCommunity = {
-		...CC,
+		...CachedCommunity,
 		user: _restore_user_state(),
 		login,
 		logout,

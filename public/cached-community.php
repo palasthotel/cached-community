@@ -1,4 +1,5 @@
 <?php
+
 namespace CachedCommunity;
 
 /*
@@ -23,6 +24,9 @@ if ( ! defined( 'WPINC' ) ) {
  * @property Cache cache
  * @property AdminBar adminBar
  * @property Ajax ajax
+ * @property Request request
+ * @property ActivityComments activityComments
+ * @property API api
  */
 class Plugin {
 
@@ -31,7 +35,10 @@ class Plugin {
 	const FILTER_MIN_CAP = "cached_community_special_cookie_min_cap";
 	const FILTER_COOKIE_NAME = "cached_community_special_cookie_name";
 	const FILTER_COOKIE_VALUE = "cached_community_special_cookie_value";
+
 	const FILTER_NO_CACHE = "cached_community_no_cache";
+	const FILTER_COMMUNITY_URLS = "cached_community_community_urls";
+	const FILTER_IS_COMMUNITY_PAGE = "cached_community_is_community_page";
 
 	const FILTER_ACTIVITY_STREAM = "cached_community_activity_stream";
 
@@ -47,8 +54,12 @@ class Plugin {
 	const USER_META_ACTIVITY_COMMENTS = "_cached_community_activity_comments";
 
 	private static $instance;
-	static function get_instance(){
-		if(self::$instance == null) self::$instance = new Plugin();
+
+	static function get_instance() {
+		if ( self::$instance == null ) {
+			self::$instance = new Plugin();
+		}
+
 		return self::$instance;
 	}
 
@@ -61,40 +72,42 @@ class Plugin {
 		 * base paths
 		 */
 		$this->path = plugin_dir_path( __FILE__ );
-		$this->url = plugin_dir_url( __FILE__ );
+		$this->url  = plugin_dir_url( __FILE__ );
 
-		require_once dirname(__FILE__)."/vendor/autoload.php";
+		require_once dirname( __FILE__ ) . "/vendor/autoload.php";
 
-		$this->specialCookie = new SpecialCookie($this);
-		$this->assets        = new Assets($this);
-		$this->cache         = new Cache($this);
-		$this->adminBar      = new AdminBar($this);
-		$this->ajax          = new Ajax($this);
+		$this->specialCookie = new SpecialCookie( $this );
+		$this->assets        = new Assets( $this );
+		$this->cache         = new Cache( $this );
+		$this->request       = new Request();
+		$this->adminBar      = new AdminBar( $this );
+		$this->ajax          = new Ajax( $this );
 
-		$this->activityComments = new ActivityComments($this);
-		$this->api = new API($this);
+		$this->activityComments = new ActivityComments( $this );
+		$this->api              = new API( $this );
 
 		/**
 		 * on activate or deactivate plugin
 		 */
-		register_activation_hook(__FILE__, array($this, "activation"));
-		register_deactivation_hook(__FILE__, array($this, "deactivation"));
+		register_activation_hook( __FILE__, array( $this, "activation" ) );
+		register_deactivation_hook( __FILE__, array( $this, "deactivation" ) );
 
 	}
 
 	/**
 	 * on plugin activation
 	 */
-	function activation(){
+	function activation() {
 	}
 
 	/**
 	 * on plugin deactivation
 	 */
-	function deactivation(){
+	function deactivation() {
 	}
 
 }
+
 Plugin::get_instance();
 
 require_once dirname( __FILE__ ) . "/public-functions.php";

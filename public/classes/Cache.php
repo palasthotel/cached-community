@@ -1,24 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: edward
- * Date: 13.07.17
- * Time: 11:18
- */
 
 namespace CachedCommunity;
 
-
-class Cache {
+class Cache extends _Component {
 
 	const GET_NO_CACHE = "no_cache";
 
-	/**
-	 * Cache constructor.
-	 *
-	 * @param Plugin $plugin
-	 */
-	function __construct($plugin) {
+	function onCreate() {
 		add_action('template_redirect', array($this, 'template_redirect'), 99);
 	}
 
@@ -26,7 +14,7 @@ class Cache {
 	 *  redirect if needed
 	 */
 	function template_redirect(){
-		if(apply_filters(Plugin::FILTER_NO_CACHE, false)){
+		if( apply_filters(Plugin::FILTER_NO_CACHE, $this->plugin->request->is_community_page()) ){
 			if(isset($_GET[self::GET_NO_CACHE])){
 				nocache_headers();
 			} else {

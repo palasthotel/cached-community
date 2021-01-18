@@ -96,8 +96,7 @@ class Cache extends _Component {
 		$curlHandler = curl_init();
 		curl_setopt_array( $curlHandler, $curlOptionList );
 		curl_exec($curlHandler);
-		error_log("PURGED ".get_the_title($comment->comment_post_ID));
-
+		
 	}
 
 }

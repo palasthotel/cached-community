@@ -32,6 +32,10 @@ class Plugin {
 
 	const DOMAIN = "cached-community";
 
+	const FILTER_IS_ENFORCE_CACHE_LOGIN = "cached_community_is_enforce_cache_login";
+	const FILTER_CACHE_ENFORCER_COOKIE_NAME = "cached_community_enforce_cache_cookie_name";
+	const FILTER_CACHE_ENFORCER_COOKIE_VALUE = "cached_community_enforce_cache_cookie_value";
+
 	const FILTER_MIN_CAP = "cached_community_special_cookie_min_cap";
 	const FILTER_COOKIE_NAME = "cached_community_special_cookie_name";
 	const FILTER_COOKIE_VALUE = "cached_community_special_cookie_value";
@@ -45,7 +49,6 @@ class Plugin {
 	const FILTER_API_USER = "cached_community_api_user";
 	const FILTER_API_LOGIN_RESPONSE = "cached_community_api_login_response";
 	const FILTER_API_LOGOUT_RESPONSE = "cached_community_api_logout_response";
-
 
 	const ACTION_API_CMD = "cached_community_api_command";
 

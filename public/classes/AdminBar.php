@@ -18,7 +18,7 @@ class AdminBar extends _Component {
 	 * @return bool
 	 */
 	private function hideUi(){
-		return !is_admin() && !$this->plugin->specialCookie->isset();
+		return !is_admin() && !$this->plugin->specialCookie->issetNoCacheCookie();
 	}
 
 	/**

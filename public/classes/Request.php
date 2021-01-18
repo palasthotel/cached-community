@@ -32,4 +32,13 @@ class Request {
 		return apply_filters( Plugin::FILTER_IS_COMMUNITY_PAGE, $is_community_page, $url );
 	}
 
+	/**
+	 * check if this request was a request that was cookie cleaned by cache enforcer
+	 * @return bool
+	 */
+	function isEnforcerRequest(){
+		// freistil configuration custom http header
+		return isset($_SERVER) && isset($_SERVER["HTTP_CACHE_ENFORCER"]) && "active" == $_SERVER["HTTP_CACHE_ENFORCER"];
+	}
+
 }

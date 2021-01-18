@@ -115,13 +115,16 @@
 	const _request = (url, method , params= {}) => new Promise((resolve, reject)=>{
 		$.ajax({
 			method,
-			url,
+			url: url.indexOf("?") >= 0 ? url+"&no_cache" : url+"?no_cache",
 			data: params,
 			dataType: "json",
 			cache: false,
 			xhrFields: {
 				withCredentials: true,
 			},
+			headers: {
+				"Cache-Enforcer": "ignore",
+			}
 		})
 			.then(data=>{
 				resolve(data);

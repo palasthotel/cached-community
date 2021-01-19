@@ -36,6 +36,7 @@ class Plugin {
 	const FILTER_CACHE_ENFORCER_COOKIE_NAME = "cached_community_enforce_cache_cookie_name";
 	const FILTER_CACHE_ENFORCER_COOKIE_VALUE = "cached_community_enforce_cache_cookie_value";
 
+	const FILTER_IS_NO_CACHE_LOGIN = "cached_community_is_no_cache_login";
 	const FILTER_MIN_CAP = "cached_community_special_cookie_min_cap";
 	const FILTER_COOKIE_NAME = "cached_community_special_cookie_name";
 	const FILTER_COOKIE_VALUE = "cached_community_special_cookie_value";

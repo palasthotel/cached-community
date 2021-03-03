@@ -2,13 +2,21 @@
 
 namespace CachedCommunity;
 
-/*
-Plugin Name: Cached Community
-Plugin URI: https://palasthotel.de
-Description: Workaround for user login with caching mechanisms
-Version: 1.0
-Author: Palasthotel ( in Person: Edward Bock, Enno Welbers, Stephan Kroppenstedt)
-*/
+/**
+ * Plugin Name: Cached Community
+ * Plugin URI: https://github.com/palasthotel/cached-community
+ * Description: Workaround for user login with caching mechanisms
+ * Version: 1.0.1
+ * Author: Palasthotel <rezeption@palasthotel.de> (in person: Edward Bock)
+ * Author URI: http://www.palasthotel.de
+ * Requires at least: 5.0
+ * Tested up to: 5.7.0
+ * Text Domain: cached-community
+ * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
+ * @copyright Copyright (c) 2021, Palasthotel
+ * @package CachedCommunity
+ *
+ */
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {

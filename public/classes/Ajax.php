@@ -7,8 +7,8 @@ class Ajax extends Components\Component {
 
 
 	public function onCreate() {
-		add_action('wp_ajax_'.Plugin::DOMAIN, array($this, 'handle'));
-		add_action( 'wp_ajax_nopriv_'.Plugin::DOMAIN, array( $this, 'handle' ) );
+		add_action( 'wp_ajax_' . Plugin::DOMAIN, array( $this, 'handle' ) );
+		add_action( 'wp_ajax_nopriv_' . Plugin::DOMAIN, array( $this, 'handle' ) );
 	}
 
 	/**
@@ -16,35 +16,37 @@ class Ajax extends Components\Component {
 	 *
 	 * @return string
 	 */
-	public function getUrl($cmd){
-		return admin_url( 'admin-ajax.php' )."?action=".Plugin::DOMAIN."&cmd=".$cmd;
+	public function getUrl( $cmd ) {
+		return admin_url( 'admin-ajax.php' ) . "?action=" . Plugin::DOMAIN . "&cmd=" . $cmd;
 	}
 
 	/**
 	 *
 	 */
-	public function getLoginUrl(){
-		return $this->getUrl("login");
+	public function getLoginUrl() {
+		return $this->getUrl( "login" );
 	}
 
 	/**
 	 *
 	 */
-	public function getLogoutUrl(){
-		return $this->getUrl("logout");
+	public function getLogoutUrl() {
+		return $this->getUrl( "logout" );
 	}
 
-	public function handle(){
+	public function handle() {
 
 		$cmd = $_REQUEST["cmd"];
 
-		if($cmd != "login" && $cmd != "logout") return;
+		if ( $cmd != "login" && $cmd != "logout" ) {
+			exit;
+		}
 
 		nocache_headers();
 
 		define( 'CACHED_COMMUNITY_AJAX_REQUEST', true );
 
-		switch ($cmd){
+		switch ( $cmd ) {
 			case "login":
 				$this->route_login();
 				break;
@@ -52,7 +54,7 @@ class Ajax extends Components\Component {
 				$this->route_logout();
 				break;
 			case "activity":
-				die("TODO: implement this");
+				die( "TODO: implement this" );
 				break;
 		}
 
@@ -63,8 +65,8 @@ class Ajax extends Components\Component {
 	/**
 	 * handle login
 	 */
-	public function route_login(){
-		if(isset($_POST) && !empty($_POST)){
+	public function route_login() {
+		if ( isset( $_POST ) && ! empty( $_POST ) ) {
 			$this->route_post_login();
 		} else {
 			$this->route_get_login();
@@ -74,11 +76,11 @@ class Ajax extends Components\Component {
 	/**
 	 * get the login state
 	 */
-	public function route_get_login( ) {
-		wp_send_json([
+	public function route_get_login() {
+		wp_send_json( [
 			"logged_in" => is_user_logged_in(),
 			"user"      => $this->get_user(),
-		]);
+		] );
 	}
 
 	/**
@@ -86,11 +88,11 @@ class Ajax extends Components\Component {
 	 */
 	public function route_post_login() {
 
-		if(
-			!isset($_POST["user"]) || empty($_POST["user"])
+		if (
+			! isset( $_POST["user"] ) || empty( $_POST["user"] )
 			||
-			!isset($_POST["password"]) || empty($_POST["password"])
-		){
+			! isset( $_POST["password"] ) || empty( $_POST["password"] )
+		) {
 			wp_send_json_error(
 				apply_filters(
 					Plugin::FILTER_API_LOGIN_RESPONSE,
@@ -102,34 +104,34 @@ class Ajax extends Components\Component {
 			);
 		}
 
-		$user = sanitize_text_field($_POST["user"]);
-		$password = sanitize_text_field($_POST["password"]);
-		$remember = isset($_POST["remember"]) && $_POST["remember"] != "no";
+		$user     = sanitize_text_field( $_POST["user"] );
+		$password = sanitize_text_field( $_POST["password"] );
+		$remember = isset( $_POST["remember"] ) && $_POST["remember"] != "no";
 
 		$user_sign_on = wp_signon( array(
 			'user_login'    => $user,
 			'user_password' => $password,
 			'remember'      => $remember,
-		), WP_DEBUG ? '' : true  );
+		), WP_DEBUG ? '' : true );
 
 		if ( is_wp_error( $user_sign_on ) ) {
-			wp_send_json_error(apply_filters(
+			wp_send_json_error( apply_filters(
 				Plugin::FILTER_API_LOGIN_RESPONSE,
 				array(
 					'logged_in' => false,
 					'message'   => __( 'Wrong username or password.' ),
 				)
-			));
+			) );
 		}
 
-		wp_send_json_success(apply_filters(
+		wp_send_json_success( apply_filters(
 			Plugin::FILTER_API_LOGIN_RESPONSE,
 			array(
 				'logged_in' => true,
 				'user'      => $this->get_user( $user_sign_on ),
 				'message'   => __( 'Login successful, redirecting...' ),
 			)
-		));
+		) );
 	}
 
 	/**
@@ -138,10 +140,10 @@ class Ajax extends Components\Component {
 	 */
 	public function route_logout() {
 		wp_logout();
-		wp_send_json_success(apply_filters(
+		wp_send_json_success( apply_filters(
 			Plugin::FILTER_API_LOGOUT_RESPONSE,
 			[]
-		));
+		) );
 	}
 
 

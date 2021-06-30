@@ -29,7 +29,8 @@ class Request {
 	function is_community_page( $url = null ) {
 		if(!is_string( $url)) $url = $this->get_url();
 		$is_community_page = in_array( $url, apply_filters( Plugin::FILTER_COMMUNITY_URLS, array() ) );
-		return apply_filters( Plugin::FILTER_IS_COMMUNITY_PAGE, $is_community_page, $url );
+		$is_community_id = get_post_meta(get_the_ID(), Plugin::POST_META_DEACTIVATE_CACHING, true) === "1";
+		return apply_filters( Plugin::FILTER_IS_COMMUNITY_PAGE, $is_community_page || $is_community_id, $url );
 	}
 
 	/**

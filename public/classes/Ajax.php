@@ -3,21 +3,10 @@
 
 namespace CachedCommunity;
 
-class Ajax extends _Component {
+class Ajax extends Components\Component {
 
 
 	public function onCreate() {
-
-		add_action( "wp_enqueue_scripts", function(){
-			$this->plugin->assets->enqueueClientAPIScripts( array(
-				"ajax" => [
-					"login" => $this->plugin->ajax->getLoginUrl(),
-					"logout" => $this->plugin->ajax->getLogoutUrl(),
-					"activity" => "TODO:activity url"
-				],
-			));
-		});
-
 		add_action('wp_ajax_'.Plugin::DOMAIN, array($this, 'handle'));
 		add_action( 'wp_ajax_nopriv_'.Plugin::DOMAIN, array( $this, 'handle' ) );
 	}

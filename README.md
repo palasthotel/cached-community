@@ -9,11 +9,11 @@ You have to setup your caching layer so that it does not skip cache on default w
 You can find the default cookie name in `classes/SpecialCookies::DEFAULT_COOKIE_NAME` or you can overwrite the cookie name via filter.
 
 ```php
-if(class_exists('\CachedCommunity\Plugin')){
+if(function_exists('cached_community_plugin')){
     function my_cookie_name($cookie_name){
         return "my_own_cookie_name";
     }
-    add_filter(\CachedCommunity\Plugin::FILTER_COOKIE_NAME, 'my_cookie_name');
+    add_filter(cached_community_plugin()::FILTER_COOKIE_NAME, 'my_cookie_name');
 }
 ```
 

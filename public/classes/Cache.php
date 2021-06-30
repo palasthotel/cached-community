@@ -4,7 +4,7 @@ namespace CachedCommunity;
 
 use WP_Comment;
 
-class Cache extends _Component {
+class Cache extends Components\Component {
 
 	const GET_NO_CACHE = "no_cache";
 	private $purged;

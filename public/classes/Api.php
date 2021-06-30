@@ -3,7 +3,7 @@
 namespace CachedCommunity;
 
 
-class API {
+class API extends Components\Component {
 
 	const ACTION = "cached_community";
 
@@ -17,30 +17,6 @@ class API {
 
 	const NONCE_ACTION = "cached-community-login";
 	const NONCE_NAME = "security";
-
-	/**
-	 * API constructor.
-	 *
-	 * @param Plugin $plugin
-	 */
-	function __construct( $plugin ) {
-		$this->plugin = $plugin;
-
-		add_action( "wp_enqueue_scripts", array( $this, "enqueue_scripts" ) );
-	}
-
-	/**
-	 * register js api scripts
-	 */
-	function enqueue_scripts() {
-		$this->plugin->assets->enqueueClientAPIScripts( array(
-			"ajax" => [
-				"login" => $this->plugin->ajax->getLoginUrl(),
-				"logout" => $this->plugin->ajax->getLogoutUrl(),
-				"activity" => "TODO:activity url"
-			],
-		));
-	}
 
 	/**
 	 * handle ajax request

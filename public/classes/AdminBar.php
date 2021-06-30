@@ -3,7 +3,7 @@
 namespace CachedCommunity;
 
 
-class AdminBar extends _Component {
+class AdminBar extends Components\Component {
 
 	/**
 	 * initialize component

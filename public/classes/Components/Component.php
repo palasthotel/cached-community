@@ -1,12 +1,12 @@
 <?php
 
 
-namespace CachedCommunity;
+namespace CachedCommunity\Components;
 
 /**
- * @property Plugin plugin
+ * @property \CachedCommunity\Plugin plugin
  */
-class _Component {
+class Component {
 	/**
 	 * _Component constructor.
 	 *

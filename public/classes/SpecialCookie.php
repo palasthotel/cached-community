@@ -6,7 +6,7 @@ namespace CachedCommunity;
 
 use WP_User;
 
-class SpecialCookie extends _Component {
+class SpecialCookie extends Components\Component {
 
 	private const DEFAULT_NO_CACHE_COOKIE_NAME = "special_login_cookie";
 	private const DEFAULT_NO_CACHE_COOKIE_VALUE = "special_cookie_value";

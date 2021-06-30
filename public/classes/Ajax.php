@@ -102,7 +102,7 @@ class Ajax extends _Component {
 			||
 			!isset($_POST["password"]) || empty($_POST["password"])
 		){
-			wp_send_json_error([
+			wp_send_json_error(
 				apply_filters(
 					Plugin::FILTER_API_LOGIN_RESPONSE,
 					array(
@@ -110,7 +110,7 @@ class Ajax extends _Component {
 						'message'   => __( 'Missing credentails.' ),
 					)
 				)
-			]);
+			);
 		}
 
 		$user = sanitize_text_field($_POST["user"]);

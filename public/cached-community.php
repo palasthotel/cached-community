@@ -85,7 +85,7 @@ class Plugin extends Components\Plugin {
 		$this->rest          = new Rest( $this );
 
 		$this->activityComments = new ActivityComments( $this );
-		$this->api              = new API( $this );
+		$this->api              = new Api( $this );
 
 	}
 

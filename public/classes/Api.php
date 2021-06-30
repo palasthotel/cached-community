@@ -3,7 +3,7 @@
 namespace CachedCommunity;
 
 
-class API extends Components\Component {
+class Api extends Components\Component {
 
 	const ACTION = "cached_community";
 

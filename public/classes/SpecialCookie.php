@@ -130,8 +130,8 @@ class SpecialCookie extends _Component {
 		if ( is_user_logged_in() ) {
 			$this->setUserCookies( wp_get_current_user() );
 		} else {
-			if ( $this->issetEnforceCacheCookie() ) {
-				$this->unsetEnforceCacheCookie();
+			if ( !$this->issetEnforceCacheCookie() ) {
+				$this->setEnforceCacheCookie();
 			}
 			if ( $this->issetNoCacheCookie() ) {
 				$this->unsetNoCacheCookie();

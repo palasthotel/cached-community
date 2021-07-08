@@ -22,7 +22,7 @@ cd $DEST_PATH
 composer dump-autoload
 rm composer.json
 rm composer.lock
-cd ../..
+cd $PROJECT_PATH
 
 echo "Generating zip file..."
 cd "$BUILD_PATH" || exit

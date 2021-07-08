@@ -2,18 +2,28 @@
 
 namespace CachedCommunity;
 
-/*
-Plugin Name: Cached Community
-Plugin URI: https://palasthotel.de
-Description: Workaround for user login with caching mechanisms
-Version: 1.0
-Author: Palasthotel ( in Person: Edward Bock, Enno Welbers, Stephan Kroppenstedt)
-*/
+/**
+ * Plugin Name: Cached Community
+ * Plugin URI: https://github.com/palasthotel/cached-community
+ * Description: Workaround for user login with caching mechanisms
+ * Version: 1.0.2
+ * Author: Palasthotel <rezeption@palasthotel.de> (in person: Edward Bock)
+ * Author URI: http://www.palasthotel.de
+ * Requires at least: 5.0
+ * Tested up to: 5.7.2
+ * Text Domain: cached-community
+ * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
+ * @copyright Copyright (c) 2021, Palasthotel
+ * @package CachedCommunity
+ *
+ */
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+require_once dirname( __FILE__ ) . "/vendor/autoload.php";
 
 
 /**
@@ -27,8 +37,9 @@ if ( ! defined( 'WPINC' ) ) {
  * @property Request request
  * @property ActivityComments activityComments
  * @property API api
+ * @property Rest rest
  */
-class Plugin {
+class Plugin extends Components\Plugin {
 
 	const DOMAIN = "cached-community";
 
@@ -54,31 +65,16 @@ class Plugin {
 	const ACTION_API_CMD = "cached_community_api_command";
 
 	const HANDLE_JS_API = "cached-community-js";
+	const HANDLE_JS_GUTENBERG = "cached-community-gutenberg-js";
 
 	const USER_META_ACTIVITY_COMMENTS = "_cached_community_activity_comments";
 
-	private static $instance;
-
-	static function get_instance() {
-		if ( self::$instance == null ) {
-			self::$instance = new Plugin();
-		}
-
-		return self::$instance;
-	}
+	const POST_META_DEACTIVATE_CACHING = "cached_community_deactivate_caching";
 
 	/**
 	 * Plugin constructor.
 	 */
-	public function __construct() {
-
-		/**
-		 * base paths
-		 */
-		$this->path = plugin_dir_path( __FILE__ );
-		$this->url  = plugin_dir_url( __FILE__ );
-
-		require_once dirname( __FILE__ ) . "/vendor/autoload.php";
+	public function onCreate() {
 
 		$this->specialCookie = new SpecialCookie( $this );
 		$this->assets        = new Assets( $this );
@@ -86,32 +82,24 @@ class Plugin {
 		$this->request       = new Request();
 		$this->adminBar      = new AdminBar( $this );
 		$this->ajax          = new Ajax( $this );
+		$this->rest          = new Rest( $this );
 
 		$this->activityComments = new ActivityComments( $this );
-		$this->api              = new API( $this );
-
-		/**
-		 * on activate or deactivate plugin
-		 */
-		register_activation_hook( __FILE__, array( $this, "activation" ) );
-		register_deactivation_hook( __FILE__, array( $this, "deactivation" ) );
+		$this->api              = new Api( $this );
 
 	}
 
 	/**
-	 * on plugin activation
+	 * @return Plugin|mixed
+	 * @deprecated use Plugin::instance() instead
 	 */
-	function activation() {
-	}
-
-	/**
-	 * on plugin deactivation
-	 */
-	function deactivation() {
+	public static function get_instance() {
+		return self::instance();
 	}
 
 }
 
-Plugin::get_instance();
+Plugin::instance();
 
 require_once dirname( __FILE__ ) . "/public-functions.php";
+require_once dirname( __FILE__ ) . "/deprecated.php";

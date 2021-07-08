@@ -3,7 +3,7 @@
 namespace CachedCommunity;
 
 
-class ActivityComments extends _Component {
+class ActivityComments extends Components\Component {
 
 	/**
 	 * types of notification element

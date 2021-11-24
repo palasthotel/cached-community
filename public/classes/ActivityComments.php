@@ -14,21 +14,9 @@ class ActivityComments extends Components\Component {
 	 * init
 	 */
 	function onCreate() {
-		add_action( 'set_current_user', array( $this, 'set_current_user' ) );
 
 		add_action( 'comment_post', array( $this, 'comment_post' ), 10, 2 );
 		add_action( 'transition_comment_status', array( $this, 'transition_comment_post' ), 10, 3 );
-	}
-
-	/**
-	 * add activity object to user for later use in activity query
-	 */
-	function set_current_user() {
-		$user = wp_get_current_user();
-		if ( 0 == $user->ID ) {
-			return;
-		}
-		$user->activity_comments = $this;
 	}
 
 	/**

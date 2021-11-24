@@ -11,6 +11,8 @@ class Cache extends Components\Component {
 
 	function onCreate() {
 
+		if(is_admin()) return;
+
 		$this->purged = [];
 
 		if( $_SERVER['REQUEST_METHOD'] === 'GET' ){

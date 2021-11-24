@@ -3,8 +3,8 @@ Contributors: palasthotel, edwardbock
 Donate link: http://palasthotel.de/
 Tags: frontend, caching, framework
 Requires at least: 5.0
-Tested up to: 5.7.2
-Stable tag: 1.0.1
+Tested up to: 5.8.2
+Stable tag: 1.1.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -28,6 +28,10 @@ Workaround for user login with caching mechanisms on freistilbox.com hosted webs
 
 
 == Changelog ==
+
+= 1.1.1 =
+* Bugfix: Memory leak with ActivityComments on user object
+* Optimization: Skip redirect check for admin pages
 
 = 1.1.0 =
 * Feature: Gutenberg document settings panel for cache control

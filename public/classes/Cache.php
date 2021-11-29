@@ -15,7 +15,7 @@ class Cache extends Components\Component {
 
 		$this->purged = [];
 
-		if( $_SERVER['REQUEST_METHOD'] === 'GET' ){
+		if( isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'GET' ){
 			add_action('template_redirect', array($this, 'early_template_redirect'), 0);
 			add_action('template_redirect', array($this, 'late_template_redirect'), 99);
 		}

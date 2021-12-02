@@ -21,6 +21,10 @@ class SpecialCookie extends Components\Component {
 		add_action( 'wp_logout', [ $this, 'wp_logout' ] );
 	}
 
+	public function isActive(){
+		return apply_filters(Plugin::FILTER_USE_CACHE_ENFORCER_COOKIE, true) !== false;
+	}
+
 	/**
 	 * @return string
 	 */
@@ -54,6 +58,7 @@ class SpecialCookie extends Components\Component {
 	 * set cookie
 	 */
 	function setNoCacheCookie() {
+		if(!$this->isActive()) return;
 		setcookie( $this->getNoCacheCookieName(), $this->getNoCacheCookieValue(), 0, COOKIEPATH, COOKIE_DOMAIN );
 	}
 
@@ -68,6 +73,7 @@ class SpecialCookie extends Components\Component {
 	 * set cookie
 	 */
 	function setEnforceCacheCookie() {
+		if(!$this->isActive()) return;
 		setcookie( $this->getEnforceCacheCookieName(), $this->getEnforceCacheCookieValue(), 0, COOKIEPATH, COOKIE_DOMAIN );
 	}
 
@@ -114,6 +120,9 @@ class SpecialCookie extends Components\Component {
 	 * @param WP_User $user
 	 */
 	function setUserCookies( $user ) {
+
+		if(!$this->isActive()) return;
+
 		if ( ! $this->issetEnforceCacheCookie() && $this->isEnforceCacheUser( $user ) ) {
 			$this->setEnforceCacheCookie();
 			$this->unsetNoCacheCookie();
@@ -127,6 +136,9 @@ class SpecialCookie extends Components\Component {
 	 * on init
 	 */
 	function init() {
+
+		if(!$this->isActive()) return;
+
 		if ( is_user_logged_in() ) {
 			$this->setUserCookies( wp_get_current_user() );
 		} else {

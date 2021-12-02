@@ -43,6 +43,7 @@ class Plugin extends Components\Plugin {
 
 	const DOMAIN = "cached-community";
 
+	const FILTER_USE_CACHE_ENFORCER_COOKIE = "cached_community_use_cache_enforcer_cookie";
 	const FILTER_IS_ENFORCE_CACHE_LOGIN = "cached_community_is_enforce_cache_login";
 	const FILTER_CACHE_ENFORCER_COOKIE_NAME = "cached_community_enforce_cache_cookie_name";
 	const FILTER_CACHE_ENFORCER_COOKIE_VALUE = "cached_community_enforce_cache_cookie_value";

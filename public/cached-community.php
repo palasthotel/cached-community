@@ -6,7 +6,7 @@ namespace CachedCommunity;
  * Plugin Name: Cached Community
  * Plugin URI: https://github.com/palasthotel/cached-community
  * Description: Workaround for user login with caching mechanisms
- * Version: 1.2.0
+ * Version: 1.1.2
  * Author: Palasthotel <rezeption@palasthotel.de> (in person: Edward Bock)
  * Author URI: http://www.palasthotel.de
  * Requires at least: 5.0

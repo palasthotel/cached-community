@@ -3,8 +3,8 @@ Contributors: palasthotel, edwardbock
 Donate link: http://palasthotel.de/
 Tags: frontend, caching, framework
 Requires at least: 5.0
-Tested up to: 5.8.2
-Stable tag: 1.1.1
+Tested up to: 5.9.2
+Stable tag: 1.1.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -28,6 +28,10 @@ Workaround for user login with caching mechanisms on freistilbox.com hosted webs
 
 
 == Changelog ==
+
+= 1.1.2 =
+* Translations: German
+* Optimization: API supports POST json requests
 
 = 1.1.1 =
 * Bugfix: Memory leak with ActivityComments on user object

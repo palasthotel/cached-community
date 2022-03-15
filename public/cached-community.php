@@ -6,14 +6,14 @@ namespace CachedCommunity;
  * Plugin Name: Cached Community
  * Plugin URI: https://github.com/palasthotel/cached-community
  * Description: Workaround for user login with caching mechanisms
- * Version: 1.1.1
+ * Version: 1.2.0
  * Author: Palasthotel <rezeption@palasthotel.de> (in person: Edward Bock)
  * Author URI: http://www.palasthotel.de
  * Requires at least: 5.0
- * Tested up to: 5.8.1
+ * Tested up to: 5.9.2
  * Text Domain: cached-community
  * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
- * @copyright Copyright (c) 2021, Palasthotel
+ * @copyright Copyright (c) 2022, Palasthotel
  * @package CachedCommunity
  *
  */
@@ -76,6 +76,8 @@ class Plugin extends Components\Plugin {
 	 * Plugin constructor.
 	 */
 	public function onCreate() {
+
+		$this->loadTextdomain(self::DOMAIN, "languages");
 
 		$this->specialCookie = new SpecialCookie( $this );
 		$this->assets        = new Assets( $this );

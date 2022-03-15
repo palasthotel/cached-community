@@ -101,7 +101,7 @@ class Ajax extends Components\Component {
 					Plugin::FILTER_API_LOGIN_RESPONSE,
 					array(
 						'logged_in' => false,
-						'message'   => __( 'Missing credentails.' ),
+						'message'   => __( 'Missing username or password.', Plugin::DOMAIN ),
 					)
 				)
 			);
@@ -122,7 +122,7 @@ class Ajax extends Components\Component {
 				Plugin::FILTER_API_LOGIN_RESPONSE,
 				array(
 					'logged_in' => false,
-					'message'   => __( 'Wrong username or password.' ),
+					'message'   => __( 'Wrong username or password.', Plugin::DOMAIN ),
 				)
 			) );
 		}
@@ -132,7 +132,7 @@ class Ajax extends Components\Component {
 			array(
 				'logged_in' => true,
 				'user'      => $this->get_user( $user_sign_on ),
-				'message'   => __( 'Login successful, redirecting...' ),
+				'message'   => __( 'Login successful', Plugin::DOMAIN ),
 			)
 		) );
 	}

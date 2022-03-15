@@ -58,7 +58,7 @@ class Ajax extends Components\Component {
 				break;
 		}
 
-		// someone else want to handle the command?
+		// someone else wants to handle the command?
 		do_action( Plugin::ACTION_API_CMD, $cmd );
 	}
 
@@ -66,8 +66,15 @@ class Ajax extends Components\Component {
 	 * handle login
 	 */
 	public function route_login() {
-		if ( isset( $_POST ) && ! empty( $_POST ) ) {
-			$this->route_post_login();
+
+		if ( empty( $_POST ) ) {
+			$json = file_get_contents( "php://input" );
+			if ( ! empty( $json ) ) {
+				$_POST = json_decode( $json, true );
+			}
+		}
+		if(!empty($_POST)){
+			$this->route_post_login($_POST);
 		} else {
 			$this->route_get_login();
 		}
@@ -86,13 +93,9 @@ class Ajax extends Components\Component {
 	/**
 	 *  do the login magic
 	 */
-	public function route_post_login() {
+	public function route_post_login($post) {
 
-		if (
-			! isset( $_POST["user"] ) || empty( $_POST["user"] )
-			||
-			! isset( $_POST["password"] ) || empty( $_POST["password"] )
-		) {
+		if ( empty( $post["user"] ) || empty( $post["password"] ) ) {
 			wp_send_json_error(
 				apply_filters(
 					Plugin::FILTER_API_LOGIN_RESPONSE,
@@ -104,9 +107,9 @@ class Ajax extends Components\Component {
 			);
 		}
 
-		$user     = sanitize_text_field( $_POST["user"] );
-		$password = sanitize_text_field( $_POST["password"] );
-		$remember = isset( $_POST["remember"] ) && $_POST["remember"] != "no";
+		$user     = sanitize_text_field( $post["user"] );
+		$password = sanitize_text_field( $post["password"] );
+		$remember = isset( $post["remember"] ) && $post["remember"] != "no";
 
 		$user_sign_on = wp_signon( array(
 			'user_login'    => $user,

@@ -85,6 +85,7 @@ class Ajax extends Components\Component {
 	 */
 	public function route_get_login() {
 		wp_send_json( [
+			"success"   => true,
 			"logged_in" => is_user_logged_in(),
 			"user"      => $this->get_user(),
 		] );

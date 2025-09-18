@@ -25,20 +25,6 @@ if ( ! defined( 'WPINC' ) ) {
 
 require_once dirname( __FILE__ ) . "/vendor/autoload.php";
 
-
-/**
- * @property string path
- * @property string url
- * @property Assets assets
- * @property SpecialCookie specialCookie
- * @property Cache cache
- * @property AdminBar adminBar
- * @property Ajax ajax
- * @property Request request
- * @property ActivityComments activityComments
- * @property API api
- * @property Rest rest
- */
 class Plugin extends Components\Plugin {
 
 	const DOMAIN = "cached-community";
@@ -71,6 +57,16 @@ class Plugin extends Components\Plugin {
 	const USER_META_ACTIVITY_COMMENTS = "_cached_community_activity_comments";
 
 	const POST_META_DEACTIVATE_CACHING = "cached_community_deactivate_caching";
+
+    public $assets;
+    public $specialCookie;
+    public $cache;
+    public $adminBar;
+    public $ajax;
+    public $request;
+    public $activityComments;
+    public $api;
+    public $rest;
 
 	/**
 	 * Plugin constructor.

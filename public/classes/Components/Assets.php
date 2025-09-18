@@ -2,13 +2,9 @@
 
 namespace CachedCommunity\Components;
 
-/**
- * Class Assets
- * @property Plugin plugin
- * @version 0.1.2
- */
 class Assets {
 
+    public $plugin;
 	public function __construct( Plugin $plugin ) {
 		$this->plugin = $plugin;
 	}

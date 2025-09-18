@@ -5,12 +5,6 @@ namespace CachedCommunity\Components;
 use ReflectionClass;
 use ReflectionException;
 
-/**
- * @property string path
- * @property string url
- * @property string basename
- * @version 0.1.2
- */
 abstract class Plugin {
 
 	/**
@@ -19,6 +13,9 @@ abstract class Plugin {
 	private $ref;
 
 	private $tooLateForTextdomain;
+    public $path;
+    public $url;
+    public $basename;
 
 	/**
 	 * @throws ReflectionException

@@ -3,11 +3,9 @@
 
 namespace CachedCommunity;
 
-
-/**
- * @property Components\Assets utils
- */
 class Assets extends Components\Component {
+
+    public $utils;
 
 	public function onCreate() {
 		parent::onCreate();

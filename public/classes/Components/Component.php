@@ -3,10 +3,8 @@
 
 namespace CachedCommunity\Components;
 
-/**
- * @property \CachedCommunity\Plugin plugin
- */
 class Component {
+    public $plugin;
 	/**
 	 * _Component constructor.
 	 *
